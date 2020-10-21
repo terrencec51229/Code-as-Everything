@@ -1,0 +1,23 @@
+---
+- hosts: TNG-Prod
+  gather_facts: no
+  connection: local
+ 
+  tasks:
+
+  - name: Gather The Login Credentials
+    include_vars: credentials.yml
+
+  - name: Define The Targets
+    set_fact:
+      provider:
+        host: "{{ inventory_hostname }}" 
+        username: "{{ creds['username'] }}"
+        password: "{{ creds['password'] }}"
+
+  - name: Disable The Outside Bundle Interface of Each LTM at Both Sites
+    ios_config:
+      provider: "{{ provider }}"
+      lines:
+        - "shutdown"
+      parents: interface Port-channel20
