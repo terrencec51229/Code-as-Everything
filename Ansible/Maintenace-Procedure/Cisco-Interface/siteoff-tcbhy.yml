@@ -1,0 +1,25 @@
+---
+- hosts: TCB-RTR-Others
+  gather_facts: no
+  connection: local
+ 
+  tasks:
+
+  - name: Gather The Login Credentials
+    include_vars: credentials.yml
+
+  - name: Define The Targets
+    set_fact:
+      provider:
+        host: "{{ inventory_hostname }}" 
+        username: "{{ Cisco['username'] }}"
+        password: "{{ Cisco['password'] }}"
+
+  - name: Disable The Routed Interface That Bridges The Hybrid Environment
+    ios_config:
+      provider: "{{ provider }}"
+      lines:
+        - "shutdown"
+      parents: interface Vlan703
+
+
