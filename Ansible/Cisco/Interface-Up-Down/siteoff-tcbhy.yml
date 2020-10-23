@@ -1,5 +1,5 @@
 ---
-- hosts: TCB-Others
+- hosts: TCB-RTR-Others
   gather_facts: no
   connection: local
  
@@ -12,8 +12,8 @@
     set_fact:
       provider:
         host: "{{ inventory_hostname }}" 
-        username: "{{ creds['username'] }}"
-        password: "{{ creds['password'] }}"
+        username: "{{ Cisco['username'] }}"
+        password: "{{ Cisco['password'] }}"
 
   - name: Disable The Routed Interface That Bridges The Hybrid Environment
     ios_config:

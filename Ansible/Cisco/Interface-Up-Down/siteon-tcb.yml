@@ -1,5 +1,5 @@
 ---
-- hosts: TCB-Prod
+- hosts: TCB-RTR-Prod
   gather_facts: no
   connection: local
  
@@ -12,8 +12,8 @@
     set_fact:
       provider:
         host: "{{ inventory_hostname }}" 
-        username: "{{ creds['username'] }}"
-        password: "{{ creds['password'] }}"
+        username: "{{ Cisco['username'] }}"
+        password: "{{ Cisco['password'] }}"
 
   - name: Enable The Outside Bundle Interface of Each LTM at Both Sites
     ios_config:
