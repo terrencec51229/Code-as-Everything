@@ -1,0 +1,52 @@
+---
+- hosts: TNG-F5N-Prod
+  gather_facts: no
+  connection: local
+ 
+  tasks:
+
+  - name: Gather The Login Credentials
+    include_vars: credentials.yml
+
+  - name: Define The Targets
+    set_fact:
+      provider:
+        server: "{{ inventory_hostname }}" 
+        user: "{{ F5['username'] }}"
+        password: "{{ F5['password'] }}"
+        validate_certs: false
+
+  - name: Enable The VLAN Fail-safe Feature of The YT VLAN
+    bigip_vlan:
+      name: Outside
+      fail_safe: yes
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Enable The VLAN Fail-safe Feature of The C8 VLAN
+    bigip_vlan:
+      name: Outside_C8
+      fail_safe: yes
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Enable The Gateway Fail-safe Feature by Internet-Next-hop 
+    bigip_command:
+      commands: modify /ltm node TNG-RTR-IA-HSRP monitor default
+      warn: no
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Enable The Gateway Fail-safe Feature by Minimum-up-member on LTM01
+    bigip_command:
+      commands: modify /ltm pool Failsafe_LTM01 min-up-members 1
+      warn: no
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Enable The Gateway Fail-safe Feature by Minimum-up-member on LTM02
+    bigip_command:
+      commands: modify /ltm pool Failsafe_LTM02 min-up-members 1
+      warn: no
+      provider: "{{ provider }}"
+    delegate_to: localhost
