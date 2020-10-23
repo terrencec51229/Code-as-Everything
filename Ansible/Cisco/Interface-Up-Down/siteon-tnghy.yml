@@ -1,5 +1,5 @@
 ---
-- hosts: TCB-Others
+- hosts: TNG-Others
   gather_facts: no
   connection: local
  
@@ -15,12 +15,9 @@
         username: "{{ creds['username'] }}"
         password: "{{ creds['password'] }}"
 
-  - name: Disable The Outside Bundle Interface of Each LTM at Both Sites
+  - name: Enable The Routed Interface That Bridges The Hybrid Environment
     ios_config:
       provider: "{{ provider }}"
       lines:
-        - "description ## Ansible Playbook Test II ##"
-        - "shutdown"
-      parents: interface TenGigabitEthernet1/0/14
-
-
+        - "no shutdown"
+      parents: interface Vlan603

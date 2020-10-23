@@ -1,5 +1,5 @@
 ---
-- hosts: TNG-Others
+- hosts: TCB-Others
   gather_facts: no
   connection: local
  
@@ -15,9 +15,9 @@
         username: "{{ creds['username'] }}"
         password: "{{ creds['password'] }}"
 
-  - name: Enable The Outside Bundle Interface of Each LTM at Both Sites
+  - name: Enable The Routed Interface That Bridges The Hybrid Environment
     ios_config:
       provider: "{{ provider }}"
       lines:
         - "no shutdown"
-      parents: interface TenGigabitEthernet1/0/14
+      parents: interface Vlan703

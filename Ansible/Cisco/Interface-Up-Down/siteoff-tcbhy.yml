@@ -15,9 +15,11 @@
         username: "{{ creds['username'] }}"
         password: "{{ creds['password'] }}"
 
-  - name: Enable The Outside Bundle Interface of Each LTM at Both Sites
+  - name: Disable The Routed Interface That Bridges The Hybrid Environment
     ios_config:
       provider: "{{ provider }}"
       lines:
-        - "no shutdown"
-      parents: interface TenGigabitEthernet1/0/14
+        - "shutdown"
+      parents: interface Vlan703
+
+
