@@ -1,5 +1,5 @@
 ---
-- hosts: TCB-RTR-Others
+- hosts: TNG_RTR_Oth
   gather_facts: no
   connection: local
  
@@ -8,7 +8,7 @@
   - name: Gather The Login Credentials
     include_vars: ../Shared-Resources/credentials.yml
 
-  - name: Define The Targets
+  - name: Define The Target Environment
     set_fact:
       provider:
         host: "{{ inventory_hostname }}" 
@@ -20,4 +20,7 @@
       provider: "{{ provider }}"
       lines:
         - "no shutdown"
-      parents: interface Vlan703
+        - "do write memory"
+      parents: interface Vlan603
+      # For verifying if the result meets the anticipation
+      # parents: interface TenGigabitEthernet1/0/14

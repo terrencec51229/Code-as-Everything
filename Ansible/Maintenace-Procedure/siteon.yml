@@ -1,0 +1,21 @@
+---
+
+# TCB: Disable The Gateway Fail-safe Feature
+- import_playbook: ./F5-DisableFailsafe/siteon-f5n-tcb.yml
+
+# TCB: Disable The Routed Interface That Bridges The Hybrid Environment
+- import_playbook: ./Cisco-DisableExtTrunk/siteon-rtr-tcbhy.yml
+
+# TCB: Disable The Outside Bundle Interface of Each LTM
+- import_playbook: ./Cisco-DisableExtTrunk/siteon-rtr-tcb.yml
+
+# TNG: Disable The Gateway Fail-safe Feature
+- import_playbook: ./F5-DisableFailsafe/siteon-f5n-tng.yml
+
+# TNG: Disable The Routed Interface That Bridges The Hybrid Environment
+- import_playbook: ./Cisco-DisableExtTrunk/siteon-rtr-tnghy.yml
+
+# TNG: Disable The Outside Bundle Interface of Each LTM
+- import_playbook: ./Cisco-DisableExtTrunk/siteon-rtr-tng.yml
+
+...
