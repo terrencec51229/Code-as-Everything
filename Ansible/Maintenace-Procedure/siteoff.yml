@@ -1,5 +1,7 @@
 ---
 
+# Change LTM first then BRs afterward
+
 # TCB: Disable The Gateway Fail-safe Feature
 - import_playbook: ./F5-DisableFailsafe/siteoff-f5n-tcb.yml
 
