@@ -15,10 +15,16 @@
         username: "{{ Cisco['username'] }}"
         password: "{{ Cisco['password'] }}"
 
-  - name: Enable The Outside Bundle Interface of Each LTM at Both Sites
+  - name: Enable The Outside Bundle Interface of Each LTM
+    # [DEPRECATION WARNING]: The ios_interface module is kept for backwards compatibility but usage is discouraged.
+    # https://github.com/ansible-collections/cisco.ios/blob/main/docs/cisco.ios.ios_interface_module.rst
+    # This feature will be removed in a future release. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+    ios_interface:
+      provider: "{{ provider }}"
+      name: Port-channel20
+      enabled: true
+
+  - name: Push The Changes Onto The Startup-config
     ios_config:
       provider: "{{ provider }}"
-      lines:
-        - "no shutdown"
-        - "do write memory"
-      parents: interface Port-channel20
+      save_when: changed

@@ -16,14 +16,18 @@
         password: "{{ Cisco['password'] }}"
 
   - name: Disable The Routed Interface That Bridges The Hybrid Environment
+    # [DEPRECATION WARNING]: The ios_interface module is kept for backwards compatibility but usage is discouraged.
+    # https://github.com/ansible-collections/cisco.ios/blob/main/docs/cisco.ios.ios_interface_module.rst
+    # This feature will be removed in a future release. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+    ios_interface:
+      provider: "{{ provider }}"
+      name: Vlan703
+      enabled: false
+
+  - name: Push The Changes Onto The Startup-config
     ios_config:
       provider: "{{ provider }}"
-      lines:
-        - "shutdown"
-        - "do write memory"
-      parents: interface Vlan703
-      # For verifying if the result meets the anticipation
-      # parents: interface TenGigabitEthernet1/0/14
+      save_when: changed 
 
   # For observing the difference when "gather_facts" is enabled/disabled
   # - debug:
