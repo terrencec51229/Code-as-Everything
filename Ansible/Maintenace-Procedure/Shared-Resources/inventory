@@ -1,15 +1,15 @@
 [TNG_RTR_Prod]
-10.62.4.102
-10.62.4.103
+tngrtria03.tng.mgsops.com
+tngrtria04.tng.mgsops.com
 
 
 [TNG_RTR_Oth]
-10.62.4.224
+tngrtria05.tng.mgsops.com
 
 
 [TNG_F5N_Prod]
-10.62.4.100
-10.62.4.101
+tngf5nltm01.tng.mgsops.com
+tngf5nltm02.tng.mgsops.com
 
 
 [TNG_F5N_Oth]
@@ -17,17 +17,17 @@ tngf5dr.rctops.net
 
 
 [TCB_RTR_Prod]
-10.94.4.22
-10.94.4.23
+tcbrtria01.tcb.rctops.com
+tcbrtria02.tcb.rctops.com
 
 
 [TCB_RTR_Oth]
-10.94.4.44
+tcbrtria03.tcb.rctops.com
 
 
 [TCB_F5N_Prod]
-10.94.4.13
-10.94.4.14
+tcbf5nltm01.tcb.rctops.com
+tcbf5nltm02.tcb.rctops.com
 
 
 [TCB_F5N_Oth]
