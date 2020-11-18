@@ -1,0 +1,26 @@
+---
+- hosts: TCB_F5N_Prod
+  gather_facts: no
+  connection: local
+ 
+  tasks:
+
+  - name: Gather The Login Credentials
+    include_vars:
+      file: ~/Code-as-Everything/Ansible/Internal/Shared-Resources/credentials.yml
+
+  - name: Define The Target Environment
+    set_fact:
+      provider:
+        server: "{{ inventory_hostname }}" 
+        user: "{{ F5['username'] }}"
+        password: "{{ F5['password'] }}"
+        validate_certs: false
+
+  - name: Disable The Testing Virtual Server
+    bigip_virtual_server:
+      name: api.funlauncher.net-443-C8
+      state: disabled
+      # warn: no
+      provider: "{{ provider }}"
+    delegate_to: localhost

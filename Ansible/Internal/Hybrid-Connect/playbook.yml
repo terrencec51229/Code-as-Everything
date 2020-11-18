@@ -1,0 +1,8 @@
+---
+- hosts: TCB_RTR_Oth
+  gather_facts: no
+  connection: local
+ 
+  roles:
+    - targetenv
+    - targetdeploy

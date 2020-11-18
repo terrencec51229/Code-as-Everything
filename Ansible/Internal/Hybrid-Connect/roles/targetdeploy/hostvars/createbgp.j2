@@ -1,0 +1,12 @@
+router bgp {{ bgp['bgp_asn_tcb'] }}
+ neighbor {{ bgp['bgp_neighbor1_addr'] }} remote-as {{ bgp['bgp_asn_peer'] }}
+ neighbor {{ bgp['bgp_neighbor1_addr'] }} description {{ bgp['bgp_neighbor1_desc'] }}
+ neighbor {{ bgp['bgp_neighbor1_addr'] }} password 7 {{ bgp['bgp_neighbor1_pass'] }}
+ neighbor {{ bgp['bgp_neighbor1_addr'] }} shutdown
+ address-family ipv4
+  neighbor {{ bgp['bgp_neighbor1_addr'] }} activate
+  neighbor {{ bgp['bgp_neighbor1_addr'] }} send-community
+  neighbor {{ bgp['bgp_neighbor1_addr'] }} soft-reconfiguration inbound
+  neighbor {{ bgp['bgp_neighbor1_addr'] }} route-map {{ rpl['rpl_rp1_rcv_name'] }} in
+  neighbor {{ bgp['bgp_neighbor1_addr'] }} route-map {{ rpl['rpl_rp1_adv_name'] }} out
+

@@ -1,0 +1,34 @@
+[TNG_RTR_Prod]
+tngrtria03.tng.mgsops.com
+tngrtria04.tng.mgsops.com
+
+
+[TNG_RTR_Oth]
+tngrtria05.tng.mgsops.com
+
+
+[TNG_F5N_Prod]
+tngf5nltm01.tng.mgsops.com
+# tngf5nltm02.tng.mgsops.com
+
+
+[TNG_F5N_Oth]
+tngf5dr.rctops.net
+
+
+[TCB_RTR_Prod]
+tcbrtria01.tcb.rctops.com
+tcbrtria02.tcb.rctops.com
+
+
+[TCB_RTR_Oth]
+tcbrtria03.tcb.rctops.com
+
+
+[TCB_F5N_Prod]
+tcbf5nltm01.tcb.rctops.com
+# tcbf5nltm02.tcb.rctops.com
+
+
+[TCB_F5N_Oth]
+tcbf5dr.rctops.net

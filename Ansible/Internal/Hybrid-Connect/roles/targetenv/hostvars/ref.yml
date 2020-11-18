@@ -1,0 +1,25 @@
+---
+vlan:
+  vlan_svi_desc: ## Created and Managed by Ansible ##
+
+rpl:
+  rpl_pfx_tng: 10.62.0.0/16
+  rpl_pfx_tcb: 10.94.0.0/16
+  rpl_pfx_adv_name: PFX-ADV-AWS-AS65001
+  rpl_pfx_rcv_name: PFX-RCV-AWS-AS65001
+  rpl_rp1_adv_name: POLICY-ADV-AWS-AS65001
+  rpl_rp1_rcv_name: POLICY-RCV-AWS-AS65001
+  rpl_rp2_adv_name: POLICY-ADV-AWS2-AS65001
+  rpl_rp2_rcv_name: POLICY-RCV-AWS2-AS65001
+  rpl_rp1_localpref: 400
+  rpl_rp1_comm: 7224:7300
+  rpl_rp2_localpref: 200
+  rpl_rp2_comm: 7224:7100
+
+bgp:
+  bgp_asn_tng: 65115
+  bgp_asn_tcb: 65116
+  bgp_asn_peer: 65001
+  bgp_neighbor1_addr: 10.0.161.116
+  bgp_neighbor1_desc: "## PrivateVIF-DxC-RT1750 (Password: 3nable123!@#) ##"
+  bgp_neighbor1_pass: 065501204E420C485744532B4F

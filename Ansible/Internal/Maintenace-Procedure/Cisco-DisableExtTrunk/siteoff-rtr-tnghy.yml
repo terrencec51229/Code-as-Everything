@@ -1,0 +1,35 @@
+---
+- hosts: TNG_RTR_Oth
+  gather_facts: no
+  connection: local
+ 
+  tasks:
+
+  - name: Gather The Login Credentials
+    include_vars:
+      file: ~/Code-as-Everything/Ansible/Internal/Shared-Resources/credentials.yml
+
+  - name: Define The Target Environment
+    set_fact:
+      provider:
+        host: "{{ inventory_hostname }}" 
+        username: "{{ Cisco['username'] }}"
+        password: "{{ Cisco['password'] }}"
+
+  - name: Disable The Routed Interface That Bridges The Hybrid Environment
+    # [DEPRECATION WARNING]: The ios_interface module is kept for backwards compatibility but usage is discouraged.
+    # https://github.com/ansible-collections/cisco.ios/blob/main/docs/cisco.ios.ios_interface_module.rst
+    # This feature will be removed in a future release. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+    ios_interface:
+      provider: "{{ provider }}"
+      name: Vlan603
+      enabled: false
+
+  - name: Push The Changes Onto The Startup-config
+    ios_config:
+      provider: "{{ provider }}"
+      save_when: changed
+
+  # For observing the difference when "gather_facts" is enabled/disabled
+  # - debug:
+  #     var: hostvars[inventory_hostname]

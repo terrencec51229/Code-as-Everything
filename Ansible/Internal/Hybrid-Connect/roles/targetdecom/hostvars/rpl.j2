@@ -1,0 +1,19 @@
+ip prefix-list {{ rpl['rpl_pfx_adv_name'] }} permit {{ rpl['rpl_pfx_tcb'] }}
+
+ip prefix-list {{ rpl['rpl_pfx_rcv_name'] }} permit 10.18.128.0/21
+
+route-map {{ rpl['rpl_rp1_adv_name'] }}
+ match ip address prefix-list {{ rpl['rpl_pfx_adv_name'] }}
+ set community {{ rpl['rpl_rp1_comm'] }}
+
+route-map {{ rpl['rpl_rp1_rcv_name'] }}
+ match ip address prefix-list {{ rpl['rpl_pfx_rcv_name'] }}
+ set local-preference {{ rpl['rpl_rp1_localpref'] }}
+
+route-map {{ rpl['rpl_rp2_adv_name'] }}
+ match ip address prefix-list {{ rpl['rpl_pfx_adv_name'] }}
+ set community {{ rpl['rpl_rp2_comm'] }}
+
+route-map {{ rpl['rpl_rp2_rcv_name'] }}
+ match ip address prefix-list {{ rpl['rpl_pfx_rcv_name'] }}
+ set local-preference {{ rpl['rpl_rp2_localpref'] }}

@@ -1,0 +1,23 @@
+---
+
+# Change LTM first then BRs afterward
+
+# TCB: Disable The Gateway Fail-safe Feature
+#- import_playbook: ./F5-DisableFailsafe/siteoff-f5n-tcb.yml
+
+# TCB: Disable The Routed Interface That Bridges The Hybrid Environment
+- import_playbook: ./Cisco-DisableExtTrunk/siteoff-rtr-tcbhy.yml
+
+# TCB: Disable The Outside Bundle Interface of Each LTM
+- import_playbook: ./Cisco-DisableExtTrunk/siteoff-rtr-tcb.yml
+
+# TNG: Disable The Gateway Fail-safe Feature
+#- import_playbook: ./F5-DisableFailsafe/siteoff-f5n-tng.yml
+
+# TNG: Disable The Routed Interface That Bridges The Hybrid Environment
+- import_playbook: ./Cisco-DisableExtTrunk/siteoff-rtr-tnghy.yml
+
+# TNG: Disable The Outside Bundle Interface of Each LTM
+- import_playbook: ./Cisco-DisableExtTrunk/siteoff-rtr-tng.yml
+
+...

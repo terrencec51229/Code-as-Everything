@@ -1,0 +1,15 @@
+---
+- name: Gather The Login Credentials
+  include_vars:
+    file: ~/Code-as-Everything/Ansible/Internal/Hybrid-Connect/resources/credentials.yml
+
+- name: Gather The Change Configuration
+  include_vars:
+    file: ../hostvars/ref.yml
+
+- name: Define The Target Environment
+  set_fact:
+    provider:
+      host: "{{ inventory_hostname }}"
+      username: "{{ Cisco['username'] }}"
+      password: "{{ Cisco['password'] }}"

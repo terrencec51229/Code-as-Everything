@@ -1,0 +1,30 @@
+---
+  - name: Create VLAN
+    ios_vlan:
+      provider: "{{ provider }}"
+      vlan_id: 1750
+      name: Ext_Ansible
+      state: present
+
+  - name: Create SVI
+    ios_l3_interface:
+      provider: "{{ provider }}"
+      name: Vlan1750
+      ipv4: 10.0.161.117/31
+
+  - name: Add SVI Description
+    ios_config:
+      provider: "{{ provider }}"
+      lines:
+        - description "{{ vlan['vlan_svi_desc'] }}"
+      parents: interface Vlan1750
+
+  - name: Import Route-policy Elements
+    ios_config:
+      provider: "{{ provider }}"
+      src: ../hostvars/createrpl.j2
+
+  - name: Import BGP Adjacency Elements
+    ios_config:
+      provider: "{{ provider }}"
+      src: ../hostvars/createbgp.j2
