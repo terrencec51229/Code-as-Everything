@@ -1,3 +1,7 @@
+:::info
+###### tags: `Internal` `Automation` `Ansible`
+:::
+
 # Site Down Procedure for The Maintenance
 
 ## Driver
@@ -12,7 +16,3 @@ There are two tiers of the entire playbooks.
 * The top-level are `siteoff.yml` and `siteon.yml`. What they do is to import all the required playbooks, therefore, we do not need to execute each playbook accordingly.
 * The bottom-level are `Cisco-DisableExtTrunk` and `F5-DisableFailsafe` directories. All the required actions are encoded here.
 * Some of the shared resources that would be re-used by all the playbooks, such as credentials and inventory are defined in `Shared-Resources` directory.
-
-:::info
-###### tags: `Internal` `Automation` `Ansible`
-:::
