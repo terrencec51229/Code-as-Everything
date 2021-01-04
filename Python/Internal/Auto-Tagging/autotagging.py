@@ -23,9 +23,8 @@ def lambda_handler(event, context):
     if 'detail' in event:
         try:
             if 'userIdentity' in event['detail']:
-                map_project_id = 'map-migrated-paci-688813802749'
-                map_casino_id = 'map-migrated-paci-teg0'
-                map_app_id = 'map-migrated-paci-disco'
+                map_casino_id = 'd-server-00a0b1flwu6pb1'
+                map_app_id = 'infra-rubrik'
                 if event['detail']['userIdentity']['type'] == 'AssumedRole':
                     user_name = str('Username: ' + event['detail']['userIdentity']['principalId'].split(':')[1] + ' with Role: ' + event['detail']['userIdentity']['sessionContext']['sessionIssuer']['userName'])
                 elif event['detail']['userIdentity']['type'] == 'IAMUser':
@@ -66,9 +65,6 @@ def lambda_handler(event, context):
                     instance_name = user_name
                 # Check if the MAP relevant tags exist in instance tags
                 if instance_tags:
-                    if not any(keys.get('Key') == 'aws-migration-project-id' for keys in instance_tags):
-                        logging.info(f'Tag "aws-migration-project-id" does not exist for instance {instance}, creating...')
-                        aws_create_tag(aws_region, instance, 'aws-migration-project-id', map_project_id)
                     if not any(keys.get('Key') == 'map-migrated' for keys in instance_tags):
                         logging.info(f'Tag "map-migrated" does not exist for instance {instance}, creating...')
                         aws_create_tag(aws_region, instance, 'map-migrated', map_casino_id)
@@ -79,7 +75,6 @@ def lambda_handler(event, context):
                         logging.info(f'All the required MAP tags already exist for instance {instance}')
                 else:
                     logging.info(f'Instance {instance} has no tags, let\'s tag it with all the MAP relevant tags')
-                    aws_create_tag(aws_region, instance, 'aws-migration-project-id', map_project_id)
                     aws_create_tag(aws_region, instance, 'map-migrated', map_casino_id)
                     aws_create_tag(aws_region, instance, 'map-migrated-app', map_app_id)
                 # Let's tag the instance volumes
@@ -89,9 +84,6 @@ def lambda_handler(event, context):
                     response = client.describe_volumes(VolumeIds=[volume])
                     volume_tags = [x['Tags'] for x in response['Volumes'] if 'Tags' in x]
                     if volume_tags:
-                        if not any(keys.get('Key') == 'aws-migration-project-id' for keys in volume_tags[0]):
-                            logging.info('Tag "aws-migration-project-id" does not exist, creating...')
-                            aws_create_tag(aws_region, volume, 'aws-migration-project-id', map_project_id)
                         if not any(keys.get('Key') == 'map-migrated' for keys in volume_tags[0]):
                             logging.info('Tag "map-migrated" does not exist, creating...')
                             aws_create_tag(aws_region, volume, 'map-migrated', map_casino_id)
@@ -103,7 +95,6 @@ def lambda_handler(event, context):
                             aws_create_tag(aws_region, volume, 'AttachedInstance', instance + ' created by ' + str(instance_name))
                     else:
                         logging.info(f'volume {volume} has no tags, let\'s tag it with all the MAP relevant tags')
-                        aws_create_tag(aws_region, volume, 'aws-migration-project-id', map_project_id)
                         aws_create_tag(aws_region, volume, 'map-migrated', map_casino_id)
                         aws_create_tag(aws_region, volume, 'map-migrated-app', map_app_id)
                         aws_create_tag(aws_region, volume, 'AttachedInstance', instance + ' created by ' + str(instance_name))
