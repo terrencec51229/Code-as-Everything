@@ -16,5 +16,3 @@ There are two tiers of the entire playbooks.
 :::info
 ###### tags: `Internal` `Automation` `Ansible`
 :::
-
-{%hackmd BJrTq20hE %}
